@@ -17,9 +17,53 @@
       font-family: Arial, sans-serif;
     }
 
+    html {
+      scroll-padding-top: 120px;
+      /* Para compensar el header fijo al hacer scroll a secciones */
+    }
+
     body {
       line-height: 1.6;
       color: #333;
+      padding-top: 120px;
+      /* Para compensar el header fijo */
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+     border: none;
+      border-radius: 50%;
+
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+
+      display: none;
+      /* oculto al inicio */
+      align-items: center;
+      justify-content: center;
+
+      /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    #scrollTopBtn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Responsive: más pequeño en móvil */
+    @media (max-width: 576px) {
+      #scrollTopBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        bottom: 15px;
+        right: 15px;
+      }
     }
 
     header {
@@ -226,7 +270,7 @@
 
 <body>
 
-  <header>
+  <header class="fixed-top">
     <img class="logo" src="img/sara.png" alt="Tu nutrición con Sara">
     <div class="header-center">
       <h1 class="movil">Nutrición con Sara</h1>
@@ -235,6 +279,7 @@
         <a class="movil" href="#servicios">Servicios</a>
         <a class="movil" href="#recetas">Recetas</a>
         <a class="movil" href="#contacto">Contacto</a>
+        <a class="movil" href="#sigueme">Sígueme</a>
       </nav>
     </div>
   </header>
@@ -291,16 +336,51 @@
       </div>
 
     </section>
-
     <section id="contacto" class="section">
+      <h2>Contacto</h2>
+      <p>¿Tienes alguna pregunta o quieres agendar una consulta? ¡Envíame un mensaje!</p>
+      <form id="miFormulario">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+            <input type="text" class="form-control  $enable-grid-classes" id="exampleFormControlInput1"
+              placeholder="Tu nombre">
+          </div>
+          <div class="col-md-6">
+            <label for="exampleFormControlInput1" class="form-label">Apellido</label>
+            <input type="text" class="form-control  $enable-grid-classes" id="exampleFormControlInput1"
+              placeholder="Tu apellido">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="exampleFormControlInput2" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="tu.email@ejemplo.com">
+          </div>
+          <div class="col-md-6">
+            <label for="exampleFormControlInput2" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="exampleFormControlInput2" placeholder="Tu número de teléfono">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Mensaje</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Enviar">
+      </form>
+    </section>
+
+    <section id="sigueme" class="section">
       <h2>Sígueme</h2>
-      <p>Encuentra más contenido en mis redes sociales o ponte en contacto conmigo:</p>
+      <p>Encuentra más contenido en mis redes sociales, ponte en contacto conmigo o descarga mi tarjeta profesional:</p>
       <div class="social">
         <a href="https://wa.me/617951947" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i
             class="bi bi-whatsapp"></i></a>
         <a href="https://www.instagram.com/tunutricion_consara" target="_blank" rel="noopener noreferrer"
           title="Instagram"><i class="bi bi-instagram"></i></a>
         <a href="mailto:tunutricionconsara@gmail.com" title="Correo electrónico"><i class="bi bi-envelope"></i></a>
+        <a href="img/Tu_nutrición_con_Sara.png" download title="Descargar imagen profesional"><i
+            class="bi bi-cloud-download"></i></a>
       </div>
     </section>
 
@@ -309,6 +389,7 @@
   <footer>
     <p><span id="year"></span> Tu Nutrición con Sara</p>
   </footer>
+  <button id="scrollTopBtn"><i class="bi bi-arrow-up-circle"></i></button>
   <script>
     // Pone el año actual en el span#year
     (function () {
@@ -316,8 +397,26 @@
       const el = document.getElementById('year');
       if (el) el.textContent = y;
     })();
-  </script>
 
+    // Mostrar el botón de scroll al hacer scroll hacia abajo
+    const btn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        btn.style.display = "flex";
+      } else {
+        btn.style.display = "none";
+      }
+    });
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+  </script>
 </body>
 
 </html>
